@@ -49,3 +49,227 @@
                         <option value="700">Bold (700)</option>
                     </select>
                 </div>
+
+                <button id="apply-blocking">Apply Blocking Strategy</button>
+            </div>
+            
+            <div class="tab-content" id="async">
+                <div class="strategy-info">
+                    <p><strong>Async Strategy:</strong> The browser loads the font asynchronously, displaying fallback text initially. This prevents FOIT but may cause FOUT.</p>
+                </div>
+                
+                <div class="control-group">
+                    <label for="async-font-family">Select Font Family</label>
+                    <select id="async-font-family">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Merriweather">Merriweather</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="async-font-weight">Font Weight</label>
+                    <select id="async-font-weight">
+                        <option value="300">Light (300)</option>
+                        <option value="400" selected>Regular (400)</option>
+                        <option value="500">Medium (500)</option>
+                        <option value="600">Semi-Bold (600)</option>
+                        <option value="700">Bold (700)</option>
+                    </select>
+                </div>
+                
+                <button id="apply-async">Apply Async Strategy</button>
+            </div>
+            
+            <div class="tab-content" id="swap">
+                <div class="strategy-info">
+                    <p><strong>Swap Strategy:</strong> Uses font-display: swap to immediately show fallback text, then swaps to the custom font when loaded. This minimizes FOIT but may cause FOUT.</p>
+                </div>
+                
+                <div class="control-group">
+                    <label for="swap-font-family">Select Font Family</label>
+                    <select id="swap-font-family">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Merriweather">Merriweather</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="swap-font-weight">Font Weight</label>
+                    <select id="swap-font-weight">
+                        <option value="300">Light (300)</option>
+                        <option value="400" selected>Regular (400)</option>
+                        <option value="500">Medium (500)</option>
+                        <option value="600">Semi-Bold (600)</option>
+                        <option value="700">Bold (700)</option>
+                    </select>
+                </div>
+                
+                <button id="apply-swap">Apply Swap Strategy</button>
+            </div>
+            
+            <div class="tab-content" id="preload">
+                <div class="strategy-info">
+                    <p><strong>Preload Strategy:</strong> Uses &lt;link rel="preload"&gt; to fetch the font early in the page load process. This can reduce FOIT and FOUT but may impact other resources.</p>
+                </div>
+                
+                <div class="control-group">
+                    <label for="preload-font-family">Select Font Family</label>
+                    <select id="preload-font-family">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Lato">Lato</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Merriweather">Merriweather</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="preload-font-weight">Font Weight</label>
+                    <select id="preload-font-weight">
+                        <option value="300">Light (300)</option>
+                        <option value="400" selected>Regular (400)</option>
+                        <option value="500">Medium (500)</option>
+                        <option value="600">Semi-Bold (600)</option>
+                        <option value="700">Bold (700)</option>
+                    </select>
+                </div>
+                
+                <button id="apply-preload">Apply Preload Strategy</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Performance Preview & Metrics</h2>
+            
+            <div class="preview-area">
+                <div class="loading-overlay hidden" id="loading-overlay">Loading Font...</div>
+                <div class="preview-text" id="preview-text">
+                    The quick brown fox jumps over the lazy dog. 1234567890
+                </div>
+            </div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-label">Cumulative Layout Shift (CLS)</div>
+                    <div class="metric-value metric-good" id="cls-value">0.02</div>
+                    <div class="metric-label">Good: &lt;0.1</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">FOIT Duration</div>
+                    <div class="metric-value metric-warning" id="foit-value">320ms</div>
+                    <div class="metric-label">Visible text delay</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">FOUT Duration</div>
+                    <div class="metric-value metric-good" id="fout-value">0ms</div>
+                    <div class="metric-label">Style change flash</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Load Time</div>
+                    <div class="metric-value metric-bad" id="load-value">850ms</div>
+                    <div class="metric-label">Font fully loaded</div>
+                </div>
+            </div>
+            
+            <div class="timeline" id="timeline">
+                <!-- Timeline events will be added by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Generated CSS</h2>
+            <div class="code-block" id="generated-css">
+            </div>
+            <button class="export-btn" id="export-css">Export CSS</button>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Font Playground</h2>
+            <p>Compare different fonts and their rendering characteristics.</p>
+            
+            <div class="grid">
+                <div class="font-preview">
+                    <div class="font-name">Roboto</div>
+                    <div class="font-sample" style="font-family: 'Roboto', sans-serif;">The quick brown fox jumps</div>
+                    <div class="font-stats">File Size: 140KB | Weights: 9 | Render Score: 8.2/10</div>
+                </div>
+                
+                <div class="font-preview">
+                    <div class="font-name">Open Sans</div>
+                    <div class="font-sample" style="font-family: 'Open Sans', sans-serif;">The quick brown fox jumps</div>
+                    <div class="font-stats">File Size: 217KB | Weights: 10 | Render Score: 7.8/10</div>
+                </div>
+                
+                <div class="font-preview">
+                    <div class="font-name">Lato</div>
+                    <div class="font-sample" style="font-family: 'Lato', sans-serif;">The quick brown fox jumps</div>
+                    <div class="font-stats">File Size: 192KB | Weights: 10 | Render Score: 8.0/10</div>
+                </div>
+                
+                <div class="font-preview">
+                    <div class="font-name">Montserrat</div>
+                    <div class="font-sample" style="font-family: 'Montserrat', sans-serif;">The quick brown fox jumps</div>
+                    <div class="font-stats">File Size: 180KB | Weights: 9 | Render Score: 8.5/10</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Subset Builder</h2>
+            <p>Create custom font subsets to reduce file size.</p>
+            
+            <div class="control-group">
+                <label for="subset-font">Select Font</label>
+                <select id="subset-font">
+                    <option value="Roboto">Roboto</option>
+                    <option value="Open Sans">Open Sans</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>Character Set</label>
+                <div>
+                    <input type="checkbox" id="latin" checked> <label for="latin" style="display: inline;">Latin</label>
+                    <input type="checkbox" id="latin-ext"> <label for="latin-ext" style="display: inline;">Latin Extended</label>
+                    <input type="checkbox" id="cyrillic"> <label for="cyrillic" style="display: inline;">Cyrillic</label>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label for="subset-text">Custom Characters</label>
+                <textarea id="subset-text" placeholder="Enter specific characters to include..." rows="3"></textarea>
+            </div>
+            
+            <button id="build-subset">Build Subset</button>
+            
+            <div class="metrics" style="margin-top: 1.5rem;">
+                <div class="metric-card">
+                    <div class="metric-label">Original Size</div>
+                    <div class="metric-value">217KB</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Subset Size</div>
+                    <div class="metric-value metric-good">48KB</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Savings</div>
+                    <div class="metric-value metric-good">78%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Web Font Optimizer &copy; 2023 | A tool for performance-focused typography</p>
+    </footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
